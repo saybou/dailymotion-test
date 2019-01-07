@@ -1,0 +1,15 @@
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+
+	RewriteCond %{REQUEST_METHOD} ^(GET|POST)
+	RewriteRule ^(videos|playlists)$ index.php?type=$1 [NC,L]
+
+	RewriteCond %{REQUEST_METHOD} ^(GET|PATCH|DELETE)
+	RewriteRule ^(videos|playlists)/([0-9]+)$ index.php?type=$1&id=$2 [NC,L]
+
+    RewriteCond %{REQUEST_METHOD} ^(POST|DELETE)
+    RewriteRule ^playlists/([0-9]+)/video/([0-9]+)$ index_playlist_action.php?id=$1&idvideo=$2&action=addorremoveplaylistvideo [NC,L]
+
+    RewriteCond %{REQUEST_METHOD} GET
+    RewriteRule ^playlists/([0-9]+)/videos$ index_playlist_action.php?id=$1&action=listplaylistvideo [NC,L]
+</IfModule>

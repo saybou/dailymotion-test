@@ -1,0 +1,6 @@
+mysql:
+    host: docker-mysql
+    database: dailymotion-test
+    user: docker
+    password: dockermysql
+    port: 3306

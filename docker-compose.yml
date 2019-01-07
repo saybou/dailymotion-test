@@ -1,0 +1,31 @@
+version: '3'
+services:
+    php-apache:
+        container_name: docker-php-apache
+        build: './docker/php-apache/'
+        ports:
+            - 8080:80
+        volumes:
+            - ./api:/var/www/dailymotion-test/
+        depends_on:
+            - mysql
+        links:
+            - mysql
+        environment:
+            MYSQL_HOST: docker-mysql
+            MYSQL_DATABASE: dailymotion-test
+            MYSQL_USER: docker
+            MYSQL_PASSWORD: dockermysql
+            MYSQL_PORT: 3306
+    mysql:
+        image: mysql:5.7
+        container_name: docker-mysql
+        ports:
+            - 3307:3306
+        volumes:
+            - ./docker/mysql/mycustom.cnf:/etc/mysql/conf.d/custom.cnf
+        environment: 
+            MYSQL_ROOT_PASSWORD: dockermysql
+            MYSQL_DATABASE: dailymotion-test
+            MYSQL_USER: docker
+            MYSQL_PASSWORD: dockermysql
